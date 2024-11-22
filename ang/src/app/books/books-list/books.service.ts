@@ -65,18 +65,42 @@ export class BookService {
 
   // Add a new book
   addBook(book: Book): Observable<Book> {
-    return this.http.post<Book>(this.apiUrl, book).pipe(catchError(this.handleError));
+    const formData = new FormData();
+    formData.append('title', book.title);
+    formData.append('author', book.author);
+    formData.append('status', book.status);
+    formData.append('borrowerId', book.borrowerId?.toString() || '');
+    formData.append('categoryId', book.categoryId?.toString() || '');
+    if (book.coverImage) {
+      formData.append('coverImage', new Blob([atob(book.coverImage)], { type: 'image/png' }), 'cover.png');
+    }
+  
+    return this.http.post<Book>(this.apiUrl, formData).pipe(catchError(this.handleError));
   }
+  updateBook(book: Book): Observable<Book> {
+    return this.http.put<Book>(`${this.apiUrl}/${book.bookId}`, book).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  deleteBook(bookId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${bookId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
+  
 
-  // Update an existing book
-  updateBook(id: number, book: Book): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, book).pipe(catchError(this.handleError));
-  }
+  // // Update an existing book
+  // updateBook(id: number, book: Book): Observable<void> {
+  //   return this.http.put<void>(`${this.apiUrl}/${id}`, book).pipe(catchError(this.handleError));
+  // }
 
-  // Delete a book
-  deleteBook(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
-  }
+
+  // // Delete a book
+  // deleteBook(id: number): Observable<void> {
+  //   return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
+  // }
 
   private handleError(error: HttpErrorResponse) {
     console.error(`Server error: ${error.message}`);

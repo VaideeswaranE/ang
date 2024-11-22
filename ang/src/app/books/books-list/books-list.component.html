@@ -1,101 +1,79 @@
-<!-- <div class="container">
-    <h1>Library Books</h1>
-  
-    Search Bar
-    <div class="search-bar">
-      <input
-        type="text"
-        placeholder="Search by title, author, or category"
-        [(ngModel)]="searchQuery"
-      />
-      <button (click)="searchBooks()">Search</button>
-    </div>
-  
-    Error Message
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  
-    Book List
-    <div class="book-list">
-      <div *ngFor="let book of books" class="book-card">
-        <h3>{{ book.title }}</h3>
-        <p><strong>Author:</strong> {{ book.author }}</p>
-        <p><strong>Status:</strong> {{ book.status }}</p>
-  
-        <div *ngIf="book.category">
-          <p><strong>Category:</strong> {{ book.category.categoryName }}</p>
-        </div>
-  
-        <div *ngIf="book.borrower">
-          <p><strong>Borrower:</strong> {{ book.borrower.name }}</p>
-          <p><strong>Due Date:</strong> {{ book.borrower.dueDate | date }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-   -->
+<div class="container">
+  <h1>Manage Books</h1>
 
-   <div class="container">
-    <h1>Manage Books</h1>
-  
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  
-    <!-- Add New Book -->
-    <div class="form-section">
-      <h2>Add New Book</h2>
-      <form (ngSubmit)="addBook()">
-        <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Title" required />
-        <input type="text" [(ngModel)]="newBook.author" name="author" placeholder="Author" required />
-        <select [(ngModel)]="newBook.status" name="status" required>
-          <option value="Available">Available</option>
-          <option value="Borrowed">Borrowed</option>
-        </select>
-        <button type="submit">Add Book</button>
-      </form>
-    </div>
-  
-    <!-- Book List -->
-    <div class="book-list">
-      <h2>Book List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let book of books">
-            <td>{{ book.title }}</td>
-            <td>{{ book.author }}</td>
-            <td>{{ book.status }}</td>
-            <td>
-              <button (click)="editBook(book)">Edit</button>
-              <button (click)="deleteBook(book.bookId)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Edit Book -->
-    <div *ngIf="selectedBook" class="form-section">
-      <h2>Edit Book</h2>
-      <form (ngSubmit)="updateBook()">
-        <input type="text" [(ngModel)]="selectedBook.title" name="title" placeholder="Title" required />
-        <input type="text" [(ngModel)]="selectedBook.author" name="author" placeholder="Author" required />
-        <select [(ngModel)]="selectedBook.status" name="status" required>
-          <option value="Available">Available</option>
-          <option value="Borrowed">Borrowed</option>
-        </select>
-        <button type="submit">Update Book</button>
-      </form>
-    </div>
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
   </div>
-  
+
+  <!-- Add New Book -->
+  <div class="form-section">
+    <h2>Add New Book</h2>
+    <form (ngSubmit)="addBook()">
+      <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Title" required />
+      <input type="text" [(ngModel)]="newBook.author" name="author" placeholder="Author" required />
+      <select [(ngModel)]="newBook.status" name="status" required>
+        <option value="Available">Available</option>
+        <option value="Borrowed">Borrowed</option>
+      </select>
+      <div>
+        <label for="coverImage">Cover Image:</label>
+        <input type="file" id="coverImage" (change)="onCoverImageChange($event)" />
+      </div>
+      <button type="submit">Add Book</button>
+    </form>
+  </div>
+
+  <!-- Book List -->
+  <div class="book-list">
+    <h2>Book List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Cover</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books">
+          <td>
+            <img
+              *ngIf="book.coverImage"
+              [src]="'data:image/png;base64,' + book.coverImage"
+              alt="{{ book.title }}"
+              width="50"
+            />
+          </td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.status }}</td>
+          <td>
+            <button (click)="editBook(book)">Edit</button>
+            <button (click)="deleteBook(book.bookId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Edit Book -->
+  <div *ngIf="selectedBook" class="form-section">
+    <h2>Edit Book</h2>
+    <form (ngSubmit)="updateBook()">
+      <input type="text" [(ngModel)]="selectedBook.title" name="title" placeholder="Title" required />
+      <input type="text" [(ngModel)]="selectedBook.author" name="author" placeholder="Author" required />
+      <select [(ngModel)]="selectedBook.status" name="status" required>
+        <option value="Available">Available</option>
+        <option value="Borrowed">Borrowed</option>
+      </select>
+      <div>
+        <label for="editCoverImage">Cover Image:</label>
+        <input type="file" id="editCoverImage" (change)="onCoverImageChange($event)" />
+      </div>
+      <button type="submit">Update Book</button>
+    </form>
+  </div>
+</div>
