@@ -1,0 +1,55 @@
+  <div _ngcontent-ng-c51284643="" class="toolbar">
+    <br _ngcontent-ng-c51284643=""><div _ngcontent-ng-c51284643="" style="flex: 0.20;"></div>
+    <div _ngcontent-ng-c51284643="" style="flex: 4;"></div>
+    <h1 _ngcontent-ng-c51284643="" style="color: black;">Library Management</h1>
+    <div _ngcontent-ng-c51284643="" class="spacer"></div>
+    <!-- <a _ngcontent-ng-c51284643="" routerlinkactive="activebutton" routerlink="/Home" class="btn btn-primary" ng-reflect-router-link="/Home" ng-reflect-router-link-active="activebutton" href="/Home">Home</a> -->
+    <div _ngcontent-ng-c51284643="" style="flex: 2;"></div><a _ngcontent-ng-c51284643="" class="btn btn-primary" (click)="toggleAddBorrowHistoryForm()">Add Borrow History</a>
+    <div _ngcontent-ng-c51284643="" style="flex: 2;"></div><a _ngcontent-ng-c51284643="" routerlinkactive="activebutton" routerlink="/login" class="btn btn-primary activebutton" ng-reflect-router-link="/login" ng-reflect-router-link-active="activebutton" href="/login">Back</a>
+    <div _ngcontent-ng-c51284643="" style="flex: 3;"></div></div>  
+  
+  <div *ngIf="borrowHistoryList.length > 0; else noHistory">
+    <table>
+      <thead>
+        <tr>
+          <th>History ID</th>
+          <th>Borrower Name</th>
+          <th>Book Title</th>
+          <th>Borrow Date</th>
+          <th>Return Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let history of borrowHistoryList">
+          <td>{{ history.historyId }}</td>
+          <td>{{ history.borrowerName }}</td>
+          <td>{{ history.bookTitle }}</td>
+          <td>{{ history.borrowDate | date }}</td>
+          <td>{{ history.returnDate || 'Not Returned' }}</td>
+          <td>
+            <button (click)="editBorrowHistory(history)">Edit</button>
+            <button (click)="deleteBorrowHistory(history.historyId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #noHistory>
+    <p>No borrow history found.</p>
+  </ng-template>
+  
+  <div *ngIf="showAddBorrowHistoryForm">
+    <form (ngSubmit)="addBorrowHistory()">
+      <h3>Add Borrow History</h3>
+      <label>Borrower ID:</label>
+      <input [(ngModel)]="newBorrowHistory.borrowerId" name="borrowerId" required>
+      <label>Book ID:</label>
+      <input [(ngModel)]="newBorrowHistory.bookId" name="bookId" required>
+      <label>Borrow Date:</label>
+      <input type="date" [(ngModel)]="newBorrowHistory.borrowDate" name="borrowDate" required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  

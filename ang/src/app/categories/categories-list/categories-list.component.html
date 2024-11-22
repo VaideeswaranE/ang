@@ -1,0 +1,61 @@
+<div _ngcontent-ng-c51284643="" class="toolbar">
+  <br _ngcontent-ng-c51284643=""><div _ngcontent-ng-c51284643="" style="flex: 0.20;"></div>
+  <div _ngcontent-ng-c51284643="" style="flex: 4;"></div>
+  <h1 _ngcontent-ng-c51284643="" style="color: black;">Library Management</h1>
+  <div _ngcontent-ng-c51284643="" class="spacer"></div>
+  <!-- <a _ngcontent-ng-c51284643="" routerlinkactive="activebutton" routerlink="/Home" class="btn btn-primary" ng-reflect-router-link="/Home" ng-reflect-router-link-active="activebutton" href="/Home">Home</a> -->
+  <div _ngcontent-ng-c51284643="" style="flex: 2;"></div><a _ngcontent-ng-c51284643="" class="btn btn-primary" (click)="toggleAddCategoryForm()">Add Category</a>
+  <div _ngcontent-ng-c51284643="" style="flex: 2;"></div><a _ngcontent-ng-c51284643="" routerlinkactive="activebutton" routerlink="/login" class="btn btn-primary activebutton" ng-reflect-router-link="/login" ng-reflect-router-link-active="activebutton" href="/login">Back</a>
+  <div _ngcontent-ng-c51284643="" style="flex: 3;"></div></div>
+
+<div class="container">
+    <h1>Library Categories</h1>
+    <div *ngIf="categories.length > 0; else noCategories">
+      <table>
+        <thead>
+          <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>{{ category.categoryId }}</td>
+            <td>{{ category.categoryName }}</td>
+            <td>
+              <button (click)="editCategory(category)">Edit</button>
+              <button (click)="deleteCategory(category.categoryId)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noCategories>
+      <p>No categories found.</p>
+    </ng-template>
+  
+    <div *ngIf="showAddCategoryForm">
+      <form (ngSubmit)="addCategory()">
+        <h3>Add Category</h3>
+        <label>Category ID:</label>
+        <input [(ngModel)]="newCategory.categoryId" name="categoryId" type="number" required />
+        <label>Category Name:</label>
+        <input [(ngModel)]="newCategory.categoryName" name="categoryName" required />
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  
+    <div *ngIf="selectedCategory">
+      <h3>Edit Category</h3>
+      <form (ngSubmit)="updateCategory()">
+        <label>Category ID:</label>
+        <input [(ngModel)]="selectedCategory.categoryId" name="editCategoryId" type="number" readonly />
+        <label>Category Name:</label>
+        <input [(ngModel)]="selectedCategory.categoryName" name="editCategoryName" required />
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+  

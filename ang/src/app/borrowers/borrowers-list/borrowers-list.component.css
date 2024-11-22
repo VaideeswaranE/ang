@@ -1,0 +1,121 @@
+/* Borrowers Section */
+
+/* Main container for borrower-related content */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center; /* Ensure text is centered */
+    margin-left: auto;
+    margin-right: auto; /* Center the container horizontally */
+}
+
+/* Table styling */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto; /* Center the table horizontally */
+}
+
+table th,
+table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+table td {
+    background-color: #f9f9f9;
+}
+
+table tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}
+
+/* Button styling */
+button {
+    padding: 0.5rem 1rem;
+    border: none;
+    color: #fff;
+    background-color: #4CAF50;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Add/Edit Borrower Form */
+form {
+    width: 80%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto; /* Center the form horizontally */
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+form input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+form button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #4CAF50;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Message when no borrowers are found */
+.no-borrowers-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}

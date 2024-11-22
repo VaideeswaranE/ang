@@ -1,0 +1,64 @@
+<div _ngcontent-ng-c51284643="" class="toolbar">
+  <br _ngcontent-ng-c51284643=""><div _ngcontent-ng-c51284643="" style="flex: 0.20;"></div>
+  <div _ngcontent-ng-c51284643="" style="flex: 4;"></div>
+  <h1 _ngcontent-ng-c51284643="" style="color: black;">Library Management</h1>
+  <div _ngcontent-ng-c51284643="" class="spacer"></div>
+  <!-- <a _ngcontent-ng-c51284643="" routerlinkactive="activebutton" routerlink="/Home" class="btn btn-primary" ng-reflect-router-link="/Home" ng-reflect-router-link-active="activebutton" href="/Home">Home</a> -->
+  <div _ngcontent-ng-c51284643="" style="flex: 2;"></div><a _ngcontent-ng-c51284643="" class="btn btn-primary" (click)="toggleAddBorrowerForm()">Add Borrowers</a>
+  <div _ngcontent-ng-c51284643="" style="flex: 2;"></div><a _ngcontent-ng-c51284643="" routerlinkactive="activebutton" routerlink="/login" class="btn btn-primary activebutton" ng-reflect-router-link="/login" ng-reflect-router-link-active="activebutton" href="/login">Back</a>
+  <div _ngcontent-ng-c51284643="" style="flex: 3;"></div></div>
+
+<div *ngIf="borrowers.length > 0; else noBorrowers">
+  <table>
+    <thead>
+      <tr>
+        <th>Borrower ID</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Due Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let borrower of borrowers">
+        <td>{{ borrower.borrowerId }}</td> 
+        <td>{{ borrower.name }}</td>
+        <td>{{ borrower.phoneNumber }}</td>
+        <td>{{ borrower.dueDate |date }}</td>
+        <td>
+          <button (click)="editBorrower(borrower)">Edit</button>
+          <button (click)="deleteBorrower(borrower.borrowerId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <ng-template #noBorrowers>
+    <p>No borrowers found.</p>
+  </ng-template>
+  
+  <div *ngIf="showAddBorrowerForm">
+    <form (ngSubmit)="addBorrower()">
+      <h3 style="text-align: center;">Add Borrower</h3><br>
+      <label>Name:</label>
+      <input [(ngModel)]="newBorrower.name" name="name" required><br>
+      <label>Phone Number:</label>
+      <input [(ngModel)]="newBorrower.phoneNumber" name="phone" required>
+      <label>Due Date:</label>
+      <input type="date" [(ngModel)]="newBorrower.dueDate" name="dueDate" required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+  
+  <div *ngIf="selectedBorrower">
+    <h3>Edit Borrower</h3>
+    <form (ngSubmit)="updateBorrower()">
+      <label>Name:</label>
+      <input [(ngModel)]="selectedBorrower.name" name="editName" required>
+      <label>Phone Number:</label>
+      <input [(ngModel)]="selectedBorrower.phoneNumber" name="editPhone" required>
+      <label>Due Date:</label>
+      <input type="date" [(ngModel)]="selectedBorrower.dueDate" name="editDueDate" required>
+      <button type="submit">Update</button>
+    </form>
+  </div>   
